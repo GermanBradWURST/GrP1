@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9YmYxD6cCmyMYyVODUUfg798zhniujoS8Ap8P1J4WRIKmswXocTF68OWC6+8glQt6qu5Ax96ie2d43tUiQiCHQ==",
+  "dgSpecHash": "PpVwEBN+yWPvGVxSxbrvR/ihpijV0UIAKMWFCfEKe6LNyWDBBsBd6lJsRoy1YOXp8lmtlvxTY4CTFQeT2W3pkA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\javan\\OneDrive\\Documents\\Studie\\Graphics\\INFOGR2023Template\\INFOGR2023Template\\INFOGR2023Template.csproj",
+  "projectFilePath": "C:\\Users\\javan\\OneDrive\\Documents\\GrP1\\INFOGR2023Template.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\javan\\.nuget\\packages\\microsoft.netcore.platforms\\5.0.0\\microsoft.netcore.platforms.5.0.0.nupkg.sha512",
     "C:\\Users\\javan\\.nuget\\packages\\opentk\\4.7.1\\opentk.4.7.1.nupkg.sha512",
