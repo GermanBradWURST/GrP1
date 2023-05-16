@@ -2,7 +2,7 @@
 
 namespace Template
 {
-    public class primitive
+    public class Primitive
     {
 
     }

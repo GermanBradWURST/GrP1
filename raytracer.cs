@@ -2,7 +2,7 @@
 
 namespace Template
 {
-    public class raytracer
+    public class Raytracer
     {
 
     }

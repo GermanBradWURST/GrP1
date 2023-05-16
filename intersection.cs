@@ -2,7 +2,7 @@
 
 namespace Template
 {
-    public class intersection
+    public class Intersection
     {
 
     }

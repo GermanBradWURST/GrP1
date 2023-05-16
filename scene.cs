@@ -2,7 +2,7 @@
 
 namespace Template
 {
-    public class scene
+    public class Scene
     {
 
     }
