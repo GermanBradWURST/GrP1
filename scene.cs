@@ -7,9 +7,11 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Graphics.OpenGL;
 
 namespace Template
-{
+{   
+
     public class Scene
     {
-
+        public static List<Light> lightlist = new List<Light>() { };
+        public static List<Primitive> primitivelist = new List<Primitive>() { };
     }
 }

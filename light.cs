@@ -12,18 +12,17 @@ namespace Template
     {
         public Vector3 P;
         public float I;
-        public static List<Light> lightlist = new List<Light>() { };
         
         public Light(Vector3 p, float i)
         {
             P = p;
             I = i;
-            lightlist.Add(this);
+            Scene.lightlist.Add(this);
         }
 
         public void lightremove(Light l)
         {
-            lightlist.Remove(l);
+            Scene.lightlist.Remove(l);
         }
     }
 }
