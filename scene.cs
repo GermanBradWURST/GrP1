@@ -13,5 +13,20 @@ namespace Template
     {
         public static List<Light> lightlist = new List<Light>() { };
         public static List<Primitive> primitivelist = new List<Primitive>() { };
+
+        public void SceneLevelIntersect()
+        {
+            foreach (Primitive p in primitivelist)
+            {
+                Intersection result;
+                float distance;
+
+                foreach (Light l in lightlist)
+                {
+                    p.intersectcalc(l);
+                }
+
+            }
+        }
     }
 }

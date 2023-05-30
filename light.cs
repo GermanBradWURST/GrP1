@@ -10,13 +10,15 @@ namespace Template
 {
     public class Light
     {
-        public Vector3 P;
-        public float I;
+        public Vector3 Location;
+        public Vector3 Direction;
+        public Vector3 Intensity;
         
-        public Light(Vector3 p, float i)
+        public Light(Vector3 p, Vector3 d, Vector3 i)
         {
-            this.P = p;
-            this.I = i;
+            this.Location = p;
+            this.Direction = d;
+            this.Intensity = i;
             Scene.lightlist.Add(this);
         }
 

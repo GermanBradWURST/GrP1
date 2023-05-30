@@ -10,16 +10,17 @@ namespace Template
 {
     public class Intersection
     {
-        public float D;
-        public Vector3 N;
+        public double D;
+        public (double, double, double) N;
         public Primitive P;
+        public static List<Intersection> intersectionlist = new List<Intersection>() { };
 
-        public Intersection(float d, Vector3 n, Primitive p)
+        public Intersection(double d, (double, double, double) n, Primitive p)
         {
             this.D = d;
             this.N = n;
             this.P = p;
-            Scene.intersecctionlist.Add(this);
+            intersectionlist.Add(this);
         }
 
 
