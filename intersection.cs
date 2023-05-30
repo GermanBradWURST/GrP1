@@ -16,9 +16,10 @@ namespace Template
 
         public Intersection(float d, Vector3 n, Primitive p)
         {
-            D = d;
-            N = n;
-            P = p;
+            this.D = d;
+            this.N = n;
+            this.P = p;
+            Scene.intersecctionlist.Add(this);
         }
 
 

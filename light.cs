@@ -15,8 +15,8 @@ namespace Template
         
         public Light(Vector3 p, float i)
         {
-            P = p;
-            I = i;
+            this.P = p;
+            this.I = i;
             Scene.lightlist.Add(this);
         }
 
