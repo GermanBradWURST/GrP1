@@ -10,6 +10,17 @@ namespace Template
 {
     public class Intersection
     {
+        public float D;
+        public Vector3 N;
+        public Primitive P;
+
+        public Intersection(float d, Vector3 n, Primitive p)
+        {
+            D = d;
+            N = n;
+            P = p;
+        }
+
 
     }
 }
