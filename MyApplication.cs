@@ -20,7 +20,7 @@ namespace Template
             new Primitive.Plane();
             new Light();
             Scene.SceneLevelIntersect();
-            raytrace = new Raytracer(new Camera());
+            raytrace = new Raytracer(new Camera(), screen);
         }
         // tick: renders one frame
         public void Tick()

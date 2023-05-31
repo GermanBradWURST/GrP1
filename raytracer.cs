@@ -19,7 +19,8 @@ namespace Template
 
         public void Render(Surface screen) //idk what the input/output type should be
         {
-            screen.
+            int w = screen.width;
+            int h = screen.height;
             //generate ray for each pixel
             //find intersection of ray to (object?)
             //return pixel??
