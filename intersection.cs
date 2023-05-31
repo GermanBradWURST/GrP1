@@ -14,6 +14,7 @@ namespace Template
         public (double, double, double) point;
         public Primitive primitive;
         public (double, double, double) normvec;
+        public static List<Intersection> cache = new List<Intersection>() { };
         public static List<Intersection> intersectionlist = new List<Intersection>() { };
 
         public Intersection(double d, (double, double, double) n, Primitive p, (double, double, double) normvec)
@@ -22,7 +23,7 @@ namespace Template
             this.point = n;
             this.primitive = p;
             this.normvec = normvec;
-            intersectionlist.Add(this);
+            cache.Add(this);
         }
 
 
