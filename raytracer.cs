@@ -32,15 +32,13 @@ namespace Template
                 {
                     Vector3 dir = (Cam.plane.LeftUp.X+b*Xstep+(1/2)*Xstep-Cam.P.X, Cam.plane.LeftUp.Y+a*Ystep+(1/2)*Ystep-Cam.P.Y, Cam.plane.LeftUp.Z+b*Zstep+(1/2)*Zstep-Cam.P.Z);
                     double fac = Math.Sqrt(dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z);
-
                     Ray ray = new Ray(Cam.P, (dir.X / fac, dir.Y / fac, dir.Z / fac));
                     Scene.SceneLevelIntersect(ray);
-                    try { screen.Plot(a, b, Intersection.intersectionlist[0].kleur); }
-                    catch { }
+                    try { screen.Plot(b, a, Intersection.intersectionlist[0].kleur); }
+                    catch { screen.Plot(b, a, 0x000000); }
                     Intersection.intersectionlist.Clear();
                 }
             }
-
         }
     }
 

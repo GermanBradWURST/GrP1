@@ -25,7 +25,7 @@ namespace Template
             new Sphere((10, 0, +5), 2, new Color4(0.5f, 1.0f, 0.0f, 1.0f), 0x00ff00);
             new Plane((0, 1, 0), 2, new Color4(0.0f, 1.0f, 0.5f, 1.0f), 0x0000ff);
             //new Light();
-            raytrace = new Raytracer(new Camera((0,0,0), (1,0,0), (0,1,0), new ScreenPlane((3, -3, -3), (3, 3, 3))));
+            raytrace = new Raytracer(new Camera((0,0,0), (1,0,0), (0,1,0), new ScreenPlane((1, -3, 3), (1, 3, -3))));
         }
         // tick: renders one frame
         public void Tick()

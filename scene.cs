@@ -41,7 +41,7 @@ namespace Template
                 Intersection.intersectionlist.Add(inter);
             }
             catch { }
-
+            Intersection.cache.Clear();
 
         }
     }
