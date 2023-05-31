@@ -18,9 +18,6 @@ namespace Template
         {
             foreach (Primitive p in primitivelist)
             {
-                Intersection result;
-                float distance;
-
                 foreach (Light l in lightlist)
                 {
                     p.intersectcalc(l);

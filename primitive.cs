@@ -60,7 +60,8 @@ namespace Template
 
         public override Intersection intersectcalc(Light l)
         {
-            Vector3 planevector = ()
+                double D = this.origindistance * Math.Sqrt(normal.X * normal.X + normal.Y * normal.Y + normal.Z * normal.Z);
+
         }
     }
 }
