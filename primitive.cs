@@ -15,33 +15,58 @@ namespace Template
 
         }
 
-        public virtual void intersectcalc(Light l) { }
-
+        public virtual void intersectcalc(Ray ray) { }
+    }
     public class Sphere : Primitive
     {
-        public Vector3 position;
+        public Vector3 mid;
         public float radius;
         public Sphere(Vector3 position, float radius, Color4 kleur)
         {
-            this.position = position;
+            this.mid = position;
             this.radius = radius;
             this.kleur = kleur;
             Scene.primitivelist.Add(this);
         }
 
-        public override void intersectcalc(Light l)
+        public override void intersectcalc(Ray ray)
         {
-            Vector3 linevector = (this.position.X - l.Location.X, this.position.Y - l.Location.Y, this.position.Z - l.Location.Z);
-            float a = 3;
-            float b = 2 * linevector.X + 2 * linevector.Y + 2 * linevector.Z;
-            float c = linevector.X * linevector.X + linevector.Y * linevector.Y + linevector.Z * linevector.Z - this.radius * this.radius;
-            double t1 = -b / (2 * a) + Math.Sqrt(b*b - 4 * a * c) / (2*a);
-            double t2 = -b / (2 * a) + Math.Sqrt(b * b - 4 * a * c) / (2 * a);
-            double t = Math.Max(t1, t2);
-            (double, double, double) result = (this.position.X - t*linevector.X, this.position.Y - t * linevector.Y, this.position.Z - t * linevector.Z);
-            double ll = Math.Sqrt((result.Item1-l.Location.X)*(result.Item1-l.Location.X)+(result.Item2-l.Location.Y) * (result.Item2 - l.Location.Y)+ (result.Item3 - l.Location.Z) * (result.Item3 - l.Location.Z));
-            double fac = Math.Sqrt((l.Location.X - result.Item1) * (l.Location.X - result.Item1) + (l.Location.Y - result.Item2) * (l.Location.Y - result.Item2) + (l.Location.Z - result.Item3) * (l.Location.Z - result.Item3));
-            (double, double, double) normvec = ((l.Location.X - result.Item1) / fac, (l.Location.Y - result.Item2) / fac, (l.Location.Z - result.Item3) / fac);
+
+
+            float a = ray.Vector.X * ray.Vector.X + ray.Vector.Y * ray.Vector.Y + ray.Vector.Z * ray.Vector.Z;
+
+            float b = ray.Point.X*ray.Vector.X - 2*this.mid.X*ray.Vector.X + ray.Point.Y * ray.Vector.Y - 2 * this.mid.Y * ray.Vector.Y + ray.Point.Z * ray.Vector.Z - 2 * this.mid.Z * ray.Vector.Z;
+
+            float c = (this.mid.X * this.mid.X - 2 * this.mid.X * ray.Point.X + ray.Point.X * ray.Point.X) + (this.mid.Y * this.mid.Y - 2 * this.mid.Y * ray.Point.Y + ray.Point.Y * ray.Point.Y) + (this.mid.Z * this.mid.Z - 2 * this.mid.Z * ray.Point.Z + ray.Point.Z * ray.Point.Y) - this.radius * this.radius;
+
+            float Discriminant = b * b + 4 * a * c;
+
+            double t;
+
+            if (Discriminant > 0 )
+                {
+                    double t1 = -b / (2 * a) + Math.Sqrt(Discriminant) / (2 * a);
+                    double t2 = -b / (2 * a) - Math.Sqrt(Discriminant) / (2 * a);
+                    t = Math.Max(t1, t2);
+                }
+
+            else if (Discriminant == 0)
+                {
+                    t = -b / (2 * a);
+                }
+
+            else { return; }
+            
+            if (t < 0) { return; }
+
+            double ll = t;
+
+            (double, double, double) result = (ray.Point.X + t*ray.Vector.X, ray.Point.Y + t * ray.Vector.Y, ray.Point.Z + t * ray.Vector.Z);
+
+            double fac = Math.Sqrt((result.Item1 - this.mid.X) * (result.Item1 - this.mid.X) + (result.Item2 - this.mid.Y) * (result.Item2 - this.mid.Y) + (result.Item3 - this.mid.Z) * (result.Item3 - this.mid.Z));
+
+            (double, double, double) normvec = ((result.Item1 - this.mid.X) / fac, (result.Item2 - this.mid.Y) / fac, (result.Item3 - this.mid.Z) / fac);
+
             new Intersection(ll, result, this, normvec);
         }
     }
@@ -58,15 +83,36 @@ namespace Template
             Scene.primitivelist.Add(this);
         }
 
-        public override void intersectcalc(Light l)
-        {
-                double normalise = Math.Sqrt(this.normal.X * this.normal.X + this.normal.Y * this.normal.Y + this.normal.Z * this.normal.Z);
-                double D = this.origindistance * normalise;
-                double a = (D - this.normal.X * l.Location.X - this.normal.Y * l.Location.Y - this.normal.Z * l.Location.Z) / (this.normal.X * (1/normalise) * this.normal.X + this.normal.Y * (1 / normalise) * this.normal.Y + this.normal.Z * (1 / normalise) * this.normal.Z);
-                (double, double, double) result = (l.Location.X + a * (this.normal.X / normalise), l.Location.Y + a * (this.normal.Y / normalise), l.Location.Z + a * (this.normal.Z / normalise));
-                double fac = Math.Sqrt((l.Location.X - result.Item1) * (l.Location.X - result.Item1) + (l.Location.Y - result.Item2) * (l.Location.Y - result.Item2) + (l.Location.Z - result.Item3) * (l.Location.Z - result.Item3));
-                (double, double, double) normvec = ((l.Location.X - result.Item1)/fac, (l.Location.Y - result.Item2)/fac, (l.Location.Z - result.Item3)/fac);
-                new Intersection(Math.Abs(a), result, this, normvec);
+        public override void intersectcalc(Ray ray)
+        {   
+
+
+
+            double normalise = Math.Sqrt(this.normal.X * this.normal.X + this.normal.Y * this.normal.Y + this.normal.Z * this.normal.Z);
+            double D = this.origindistance * normalise;
+            (double, double, double) normalisedvector = (this.normal.X / normalise, this.normal.Y / normalise, this.normal.Z / normalise);
+            (double, double, double) position = (this.origindistance * normalisedvector.Item1, this.origindistance * normalisedvector.Item2, this.origindistance * normalisedvector.Item3);
+
+            double a = this.normal.X*(position.Item1 - ray.Point.X) + this.normal.Y*(position.Item2 - ray.Point.Y) + this.normal.Z*(position.Item3 - ray.Point.Z);
+            float b = -(this.normal.X * ray.Vector.X + this.normal.Y * ray.Vector.Y + this.normal.Z * ray.Vector.Z);
+            double t = -b / a;
+
+            if (t<=0) { return; }
+            
+            (double, double, double) result = (ray.Point.X + t * ray.Vector.X, ray.Point.Y + t * ray.Vector.Y, ray.Point.Z + t * ray.Vector.Z);
+
+            (double, double, double) normvec;
+
+            double dotproduct = normalisedvector.Item1 * ray.Vector.X + normalisedvector.Item2 * ray.Vector.Y + normalisedvector.Item3 * ray.Vector.Z;
+
+            if ( dotproduct>0)
+
+                {
+                    normvec = (-normalisedvector.Item1, -normalisedvector.Item2, -normalisedvector.Item3);
+                }
+            else { normvec = normalisedvector; }
+
+            new Intersection(Math.Abs(a), result, this, normvec);
         }
     }
 }

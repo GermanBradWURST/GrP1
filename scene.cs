@@ -15,14 +15,11 @@ namespace Template
         public static List<Primitive> primitivelist = new List<Primitive>() { };
 
 
-        public static void SceneLevelIntersect()
+        public static void SceneLevelIntersect(Ray ray)
         {
             foreach (Primitive p in primitivelist)
             {
-                foreach (Light l in lightlist)
-                {
-                    p.intersectcalc(l);
-                }
+                p.intersectcalc(ray);
 
             }
         }
