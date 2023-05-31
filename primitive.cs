@@ -60,7 +60,10 @@ namespace Template
 
         public override Intersection intersectcalc(Light l)
         {
-                double D = this.origindistance * Math.Sqrt(normal.X * normal.X + normal.Y * normal.Y + normal.Z * normal.Z);
+                double normalise = Math.Sqrt(this.normal.X * this.normal.X + this.normal.Y * this.normal.Y + this.normal.Z * this.normal.Z);
+                double D = this.origindistance * normalise;
+                double a = (D - this.normal.X * l.Location.X - this.normal.Y * l.Location.Y - this.normal.Z * l.Location.Z) / (this.normal);
+                
 
         }
     }
