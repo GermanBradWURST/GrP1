@@ -50,7 +50,10 @@ namespace Template
                 {
                     double t1 = -b / (2 * a) + Math.Sqrt(Discriminant) / (2 * a);
                     double t2 = -b / (2 * a) - Math.Sqrt(Discriminant) / (2 * a);
-                    t = Math.Max(t1, t2);
+                    if (t1 > 0 && t2 >0) { t = Math.Min(t1, t2); }
+                    else if (t1 < 0 && t2 < 0) { return; }
+                    else { t = Math.Max(t1, t2); }
+                    
                 }
 
             else if (Discriminant == 0)
