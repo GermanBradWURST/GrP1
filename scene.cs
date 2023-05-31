@@ -9,12 +9,13 @@ using OpenTK.Graphics.OpenGL;
 namespace Template
 {   
 
-    public class Scene
+    public static class Scene
     {
         public static List<Light> lightlist = new List<Light>() { };
         public static List<Primitive> primitivelist = new List<Primitive>() { };
 
-        public void SceneLevelIntersect()
+
+        public static void SceneLevelIntersect()
         {
             foreach (Primitive p in primitivelist)
             {

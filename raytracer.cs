@@ -10,19 +10,16 @@ namespace Template
 {
     public class Raytracer
     {
-        public Scene Scene;
         public Camera Cam;
-        public Surface Sur;
 
-        public Raytracer(Scene sc, Camera cam, Surface sr)
+        public Raytracer(Camera cam)
         {
-            this.Scene = sc;
             this.Cam = cam;
-            this.Sur = sr;
         }
 
-        public void Render(Camera cam, Surface surf) //idk what the input/output type should be
+        public void Render(Surface screen) //idk what the input/output type should be
         {
+            screen.
             //generate ray for each pixel
             //find intersection of ray to (object?)
             //return pixel??
