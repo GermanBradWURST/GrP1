@@ -10,16 +10,18 @@ namespace Template
 {
     public class Intersection
     {
-        public double D;
-        public (double, double, double) N;
-        public Primitive P;
+        public double distance;
+        public (double, double, double) point;
+        public Primitive primitive;
+        public (double, double, double) normvec;
         public static List<Intersection> intersectionlist = new List<Intersection>() { };
 
-        public Intersection(double d, (double, double, double) n, Primitive p)
+        public Intersection(double d, (double, double, double) n, Primitive p, (double, double, double) normvec)
         {
-            this.D = d;
-            this.N = n;
-            this.P = p;
+            this.distance = d;
+            this.point = n;
+            this.primitive = p;
+            this.normvec = normvec;
             intersectionlist.Add(this);
         }
 
