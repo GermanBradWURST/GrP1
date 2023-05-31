@@ -15,7 +15,7 @@ namespace Template
 
         }
 
-        public virtual Intersection intersectcalc(Light l) { return ////; }
+        public virtual Intersection intersectcalc(Light l) { return new Intersection(0, (0, 0, 0), this); }
     }
 
     public class Sphere : Primitive
@@ -62,9 +62,10 @@ namespace Template
         {
                 double normalise = Math.Sqrt(this.normal.X * this.normal.X + this.normal.Y * this.normal.Y + this.normal.Z * this.normal.Z);
                 double D = this.origindistance * normalise;
-                double a = (D - this.normal.X * l.Location.X - this.normal.Y * l.Location.Y - this.normal.Z * l.Location.Z) / (this.normal);
-                
-
+                double a = (D - this.normal.X * l.Location.X - this.normal.Y * l.Location.Y - this.normal.Z * l.Location.Z) / (this.normal.X * (1/normalise) * this.normal.X + this.normal.Y * (1 / normalise) * this.normal.Y + this.normal.Z * (1 / normalise) * this.normal.Z);
+                (double, double, double) result = (l.Location.X + a * (this.normal.X / normalise), l.Location.Y + a * (this.normal.Y / normalise), l.Location.Z + a * (this.normal.Z / normalise));
+                Intersection i = new Intersection(Math.Abs(a), result, this);
+                return i;
         }
     }
 }
