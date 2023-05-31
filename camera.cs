@@ -13,14 +13,19 @@ namespace Template
         public Vector3 P;
         public Vector3 LookVector;
         public Vector3 UpVector;
-        public Surface plane;
+        public ScreenPlane plane;
 
-        public Camera(Vector3 p, Vector3 l, Vector3 u, Surface pl)
+        public Camera(Vector3 p, Vector3 l, Vector3 u, ScreenPlane pl)
         {
             this.P = p;
             this.LookVector = l;
             this.UpVector = u;
             this.plane = pl;
         }
+
+        //public void Updatecamera()
+        //{
+        //    Updatescreenplane();
+        //}
     }
 }

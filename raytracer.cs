@@ -19,11 +19,28 @@ namespace Template
 
         public void Render(Surface screen) //idk what the input/output type should be
         {
-            int w = screen.width;
-            int h = screen.height;
-            //generate ray for each pixel
-            //find intersection of ray to (object?)
-            //return pixel??
+            int pixelw = screen.width;
+            int pixelh = screen.height;
+
+            float Ystep = Cam.plane.Ydif / pixelh;
+            float Xstep = Cam.plane.Xdif / pixelw;
+            float Zstep = Cam.plane.Zdif / pixelw;
+
+            for (int a = 0; a < pixelh; a++)
+            {
+                for (int b = 0; b < pixelw; b++)
+                {
+                    Vector3 dir = (Cam.plane.LeftUp.X+b*Xstep+(1/2)*Xstep-Cam.P.X, Cam.plane.LeftUp.Y+a*Ystep+(1/2)*Ystep-Cam.P.Y, Cam.plane.LeftUp.Z+b*Zstep+(1/2)*Zstep-Cam.P.Z);
+                    double fac = Math.Sqrt(dir.X * dir.X + dir.Y * dir.Y + dir.Z * dir.Z);
+
+                    Ray ray = new Ray(Cam.P, (dir.X / fac, dir.Y / fac, dir.Z / fac));
+                    Scene.SceneLevelIntersect(ray);
+                    try { screen.Plot(a, b, Intersection.intersectionlist[0].kleur); }
+                    catch { }
+                    Intersection.intersectionlist.Clear();
+                }
+            }
+
         }
     }
 

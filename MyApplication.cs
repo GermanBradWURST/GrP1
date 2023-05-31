@@ -1,4 +1,10 @@
 using System.Numerics;
+using System;
+using OpenTK.Graphics.OpenGL;
+using OpenTK.Mathematics;
+using OpenTK.Windowing.Common;
+using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Template
 {
@@ -15,12 +21,11 @@ namespace Template
         // initialize
         public void Init()
         {
-            new Primitive.Sphere();
-            new Primitive.Sphere();
-            new Primitive.Plane();
-            new Light();
-            Scene.SceneLevelIntersect();
-            raytrace = new Raytracer(new Camera(), screen);
+            new Sphere((10, 0, -5), 2, new Color4(1.0f, 0.5f, 0.0f, 1.0f), 0xff0000);
+            new Sphere((10, 0, +5), 2, new Color4(0.5f, 1.0f, 0.0f, 1.0f), 0x00ff00);
+            new Plane((0, 1, 0), 2, new Color4(0.0f, 1.0f, 0.5f, 1.0f), 0x0000ff);
+            //new Light();
+            raytrace = new Raytracer(new Camera((0,0,0), (1,0,0), (0,1,0), new ScreenPlane((3, -3, -3), (3, 3, 3))));
         }
         // tick: renders one frame
         public void Tick()

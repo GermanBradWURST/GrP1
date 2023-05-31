@@ -14,15 +14,17 @@ namespace Template
         public (double, double, double) point;
         public Primitive primitive;
         public (double, double, double) normvec;
+        public int kleur;
         public static List<Intersection> cache = new List<Intersection>() { };
         public static List<Intersection> intersectionlist = new List<Intersection>() { };
 
-        public Intersection(double d, (double, double, double) n, Primitive p, (double, double, double) normvec)
+        public Intersection(double d, (double, double, double) n, Primitive p, (double, double, double) normvec, int kleur)
         {
             this.distance = d;
             this.point = n;
             this.primitive = p;
             this.normvec = normvec;
+            this.kleur = kleur;
             cache.Add(this);
         }
 

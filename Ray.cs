@@ -10,9 +10,9 @@ namespace Template
     public struct Ray
     {
         public Vector3 Point;
-        public Vector3 Vector;//moet normalised zijn
+        public (double, double, double) Vector;//moet normalised zijn
 
-        public Ray(Vector3 p, Vector3 v)
+        public Ray(Vector3 p, (double, double, double) v)
         {
             this.Point = p; this.Vector = v;
         }
