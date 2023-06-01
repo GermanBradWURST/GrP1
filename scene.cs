@@ -19,7 +19,7 @@ namespace Template
         {
             foreach (Primitive p in primitivelist)
             {
-                p.intersectcalc(ray);
+                p.Intersectcalc(ray);
 
 
             }
@@ -39,6 +39,7 @@ namespace Template
                     }
                 }
                 Intersection.intersectionlist.Add(inter);
+
             }
             catch { }
             Intersection.cache.Clear();

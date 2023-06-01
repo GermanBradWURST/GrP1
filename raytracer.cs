@@ -35,7 +35,7 @@ namespace Template
                     Ray ray = new Ray(Cam.P, (dir.X / fac, dir.Y / fac, dir.Z / fac));
                     Scene.SceneLevelIntersect(ray);
                     try { screen.Plot(b, a, Intersection.intersectionlist[0].kleur); }
-                    catch { screen.Plot(b, a, 0x000000); }
+                    catch { screen.Plot(b, a, 0xf0f000); }
                     Intersection.intersectionlist.Clear();
                 }
             }

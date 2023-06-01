@@ -15,7 +15,26 @@ namespace Template
 
         }
 
-        public virtual void intersectcalc(Ray ray) { }
+        public virtual void Intersectcalc(Ray ray) { }
+
+        public (double, double, double) Crossproduct((double, double, double) a, (double, double, double) b)
+        {
+            double x = a.Item2*b.Item3-a.Item3*b.Item2;
+            double y = a.Item3*b.Item1-a.Item1*b.Item3;
+            double z = a.Item1*b.Item2-a.Item2*b.Item1;
+
+            return (x, y, z);
+        }
+
+        public double Magnitude((double, double, double) d)
+        {
+            return Math.Sqrt(d.Item1*d.Item1 + d.Item2*d.Item2 + d.Item3*d.Item3);
+        }
+
+        public double Scalar((double, double, double) a, (double, double, double) b)
+        {
+            return (a.Item1 * b.Item1 + a.Item2 * b.Item2 + a.Item3 * b.Item3);
+        }
     }
     public class Sphere : Primitive
     {
@@ -32,8 +51,32 @@ namespace Template
             this.k = k;
         }
 
-        public override void intersectcalc(Ray ray)
+        public override void Intersectcalc(Ray ray)
         {
+
+            /*(double, double, double) diff = (this.mid.X - ray.Point.X, this.mid.Y - ray.Point.Y, this.mid.Z - ray.Point.Z);
+            (double, double, double) prod = Crossproduct(diff, ray.Vector);
+            double distance = (Magnitude(prod)) / (Magnitude(ray.Vector));
+
+            if (distance > this.radius) { }
+            else {
+                double scal = Scalar(diff, ray.Vector);
+
+                (double, double, double) preres = (scal * ray.Vector.Item1, scal * ray.Vector.Item2, scal * ray.Vector.Item3);
+
+                double stepback = Math.Sqrt(this.radius * this.radius - distance * distance);//lengte
+
+                (double, double, double) result = (preres.Item1 - stepback * ray.Vector.Item1, preres.Item2 - stepback * ray.Vector.Item2, preres.Item3 - stepback * ray.Vector.Item3);
+
+                double ll = Magnitude((result.Item1 - ray.Point.X, result.Item2 - ray.Point.Y, result.Item3 - ray.Point.Z));
+
+                double fac = Magnitude((result.Item1 - this.mid.X, result.Item2 - this.mid.Y, result.Item3 - this.mid.Z));
+
+                (double, double, double) normvec = ((result.Item1 - this.mid.X) / fac, (result.Item2 - this.mid.Y) / fac, (result.Item3 - this.mid.Z) / fac);
+
+                new Intersection(ll, result, this, normvec, this.k);
+            }*/
+
 
 
             double a = ray.Vector.Item1 * ray.Vector.Item1 + ray.Vector.Item2 * ray.Vector.Item2 + ray.Vector.Item3 * ray.Vector.Item3;
@@ -46,34 +89,30 @@ namespace Template
 
             double t;
 
-            if (Discriminant > 0 )
+            if (Discriminant < 0 || a ==0) { }
+
+            else if (Discriminant > 0 )
+            {
+                double t1 = -b / (2 * a) + Math.Sqrt(Discriminant) / (2 * a);
+                double t2 = -b / (2 * a) - Math.Sqrt(Discriminant) / (2 * a);
+                if (t1 > 0 && t2 >0) { t = Math.Min(t1, t2); }
+                else if (t1 < 0 && t2 < 0) { return; }
+                else { t = Math.Max(t1, t2); }
+
+                if (t < 0) { }
+                else
                 {
-                    double t1 = -b / (2 * a) + Math.Sqrt(Discriminant) / (2 * a);
-                    double t2 = -b / (2 * a) - Math.Sqrt(Discriminant) / (2 * a);
-                    if (t1 > 0 && t2 >0) { t = Math.Min(t1, t2); }
-                    else if (t1 < 0 && t2 < 0) { return; }
-                    else { t = Math.Max(t1, t2); }
-                    
+                    double ll = t;
+
+                    (double, double, double) result = (ray.Point.X + t * ray.Vector.Item1, ray.Point.Y + t * ray.Vector.Item2, ray.Point.Z + t * ray.Vector.Item3);
+
+                    double fac = Math.Sqrt((result.Item1 - this.mid.X) * (result.Item1 - this.mid.X) + (result.Item2 - this.mid.Y) * (result.Item2 - this.mid.Y) + (result.Item3 - this.mid.Z) * (result.Item3 - this.mid.Z));
+
+                    (double, double, double) normvec = ((result.Item1 - this.mid.X) / fac, (result.Item2 - this.mid.Y) / fac, (result.Item3 - this.mid.Z) / fac);
+
+                    new Intersection(ll, result, this, normvec, this.k);
                 }
-
-            else if (Discriminant == 0)
-                {
-                    t = -b / (2 * a);
-                }
-
-            else { return; }
-            
-            if (t < 0) { return; }
-
-            double ll = t;
-
-            (double, double, double) result = (ray.Point.X + t*ray.Vector.Item1, ray.Point.Y + t * ray.Vector.Item2, ray.Point.Z + t * ray.Vector.Item3);
-
-            double fac = Math.Sqrt((result.Item1 - this.mid.X) * (result.Item1 - this.mid.X) + (result.Item2 - this.mid.Y) * (result.Item2 - this.mid.Y) + (result.Item3 - this.mid.Z) * (result.Item3 - this.mid.Z));
-
-            (double, double, double) normvec = ((result.Item1 - this.mid.X) / fac, (result.Item2 - this.mid.Y) / fac, (result.Item3 - this.mid.Z) / fac);
-
-            new Intersection(ll, result, this, normvec, this.k);
+            }
         }
     }
 
@@ -92,7 +131,7 @@ namespace Template
             this.k = k;
         }
 
-        public override void intersectcalc(Ray ray)
+        public override void Intersectcalc(Ray ray)
         {   
 
 
