@@ -11,14 +11,14 @@ namespace Template
     public class Intersection
     {
         public double distance;
-        public (double, double, double) point;
+        public Vector3d point;
         public Primitive primitive;
-        public (double, double, double) normvec;
+        public Vector3d normvec;
         public int kleur;
         public static List<Intersection> cache = new List<Intersection>() { };
         public static List<Intersection> intersectionlist = new List<Intersection>() { };
 
-        public Intersection(double d, (double, double, double) n, Primitive p, (double, double, double) normvec, int kleur)
+        public Intersection(double d, Vector3d n, Primitive p, Vector3d normvec, int kleur)
         {
             this.distance = d;
             this.point = n;

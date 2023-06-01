@@ -10,11 +10,11 @@ namespace Template
 {
     public class Light
     {
-        public Vector3 Location;
-        public Vector3 Direction;
-        public Vector3 Intensity;
+        public Vector3d Location;
+        public Vector3d Direction;
+        public Vector3d Intensity;
         
-        public Light(Vector3 p, Vector3 d, Vector3 i)
+        public Light(Vector3d p, Vector3d d, Vector3d i)
         {
             this.Location = p;
             this.Direction = d;
